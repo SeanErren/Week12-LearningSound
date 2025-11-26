@@ -3,24 +3,40 @@
 //import the sound library
 import processing.sound.*; //author | library | name | portion (* = everything)
 
+//Train
 Train train;
+
+//Timer
+float timerLength = 50, currentTimerValue = 0; 
 
 //declare a SoundFile
 
 SoundFile whistle;
+SoundFile pling;
+
+//color
+color c = 255;
 
 void setup() {
   size(400, 400);
   
   //load the sound effect from the data folder
   whistle = new SoundFile(this, "train-whistle.wav");
+  pling = new SoundFile(this, "pling.wav");
 
   train = new Train(random(100, 300), random(0.5, 2));
+  
 }
 
 void draw() {
-  background(255);
-
+  currentTimerValue ++;
+  if (currentTimerValue > timerLength)
+  {
+    currentTimerValue = 0;
+    background(random(255), random(255), random(255));
+    pling.play();
+  }
+  background(c);
   train.update();
 }
 
